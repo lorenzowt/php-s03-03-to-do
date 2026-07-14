@@ -3,11 +3,11 @@
 class Task
 {
     public function __construct(
-        private int $id,
         private string $title,
         private TaskState $taskState = TaskState::PENDING,
         private ?string $startTime = null,
         private ?string $endTime = null,
+        private ?int $id = null,
         private int $userId = 1,
     ) {
     }
@@ -22,5 +22,10 @@ class Task
             'endTime' => $this->endTime,
             'userId' => $this->userId,
         ];
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 }
