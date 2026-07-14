@@ -28,4 +28,29 @@ class Task
     {
         $this->id = $id;
     }
+
+    public function getTaskState()
+    {
+        return $this->taskState;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
+
+    public function getEndTime()
+    {
+        return $this->endTime;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }
