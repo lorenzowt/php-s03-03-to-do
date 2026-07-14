@@ -4,7 +4,6 @@ class TaskService
 {
     public function __construct(
         private TaskRepository $taskRepository,
-        private string $jsonPath = ROOT_PATH . '/data/tasks.json',
         ) {   
         }
 

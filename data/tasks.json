@@ -1,0 +1,29 @@
+{
+    "nextId": 4,
+    "tasks": {
+        "1": {
+            "id": 1,
+            "title": "Buy milk",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        },
+        "2": {
+            "id": 2,
+            "title": "feed cat",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        },
+        "3": {
+            "id": 3,
+            "title": "Learn PHP",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        }
+    }
+}
