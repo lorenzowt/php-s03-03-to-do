@@ -3,7 +3,7 @@
 class TaskService
 {
     public function __construct(
-        private TaskRepository $taskReposit,
+        private TaskRepository $taskRepository,
         private string $jsonPath = ROOT_PATH . '/data/tasks.json',
         ) {   
         }
@@ -26,10 +26,8 @@ class TaskService
             $taskData['title']
         );
 
-        if (!$this->taskRepository->createTask($task)){
-            return TaskActionResult::failure(['Failed to save in database']);
-        }
-        
+        $this->taskRepository->create($task);
+
         return TaskActionResult::success($task);
    }
 
