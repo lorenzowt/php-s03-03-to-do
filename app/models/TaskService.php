@@ -3,8 +3,9 @@
 class TaskService
 {
     public function __construct(
-        private TaskRepository $taskRepository,
+        private ?TaskRepository $taskRepository = null,
         ) {   
+            $this->taskRepository = $taskRepository ?? new TaskRepository();
         }
 
    public function createTask(array $taskData): TaskActionResult

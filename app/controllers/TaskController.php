@@ -7,7 +7,7 @@ class TaskController extends ApplicationController
     //but still following the framework way of constructing object
     public function __construct(?TaskService $taskService = null)
     {
-        $this->taskService = $taskServoce ?? new TaskService(new TaskRepository());
+        $this->taskService = $taskService ?? new TaskService(new TaskRepository());
     }
 
     public function newAction()
