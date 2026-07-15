@@ -9,15 +9,20 @@ class TaskRepository
 
     public function create(Task $task)
     {
-        $jsonData = $this->loadData();
-        $nextId = $jsonData['nextId'];
+        $storageData = $this->loadData();
+        $nextId = $storageData['nextId'];
 
         $task->setId($nextId);
 
-        $jsonData['tasks'][$nextId] = $task->toArray();
-        $jsonData['nextId']++;
+        $storageData['tasks'][$nextId] = $task->toArray();
+        $storageData['nextId']++;
 
-        $this->saveData($jsonData);      
+        $this->saveData($storageData);      
+    }
+
+    public function list(): array
+    {
+        
     }
 
     private function loadData(): array 
@@ -27,11 +32,23 @@ class TaskRepository
         return json_decode($jsonString, true);
     }
 
-    private function saveData(array $jsonData): void
+    private function saveData(array $storageData): void
     {
-        $jsonString = json_encode($jsonData, JSON_PRETTY_PRINT);
+        $jsonString = json_encode($storageData, JSON_PRETTY_PRINT);
 
         file_put_contents($this->jsonPath, $jsonString);
+    }
+
+    private function hydrate(array $taskData): Task
+    {
+        return new Task(
+            $taskData['title'],
+            TaskState::from($taskData['taskState']),
+            $taskData['startTime'],
+            $taskData['endTime'],
+            $taskData['id'],
+            $taskData['userId'],
+        );
     }
 
 }
