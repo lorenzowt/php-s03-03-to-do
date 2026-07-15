@@ -22,7 +22,19 @@ class TaskRepository
 
     public function list(): array
     {
+        $tasksData = $this->loadData()['tasks'];
+
+        if (empty($tasksData)){
+            return $tasksData;
+        }
         
+        $taskList = [];
+
+        foreach($tasksData as $taskData){
+            $taskList[] = $this->hydrate($taskData);
+        }
+
+        return $taskList;
     }
 
     private function loadData(): array 
