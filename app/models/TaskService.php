@@ -31,6 +31,11 @@ class TaskService
         return TaskActionResult::success($task);
    }
 
+    public function listTasks(): array
+    {
+        return $this->taskRepository->list();
+    }
+
     private function normalizeData(array $taskData): array
     {
         if (!isset($taskData['title'])){
