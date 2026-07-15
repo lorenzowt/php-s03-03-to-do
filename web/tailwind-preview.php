@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <?php
 $task = [
     'title' => 'Complete a feature',
@@ -8,6 +9,10 @@ $task = [
     'userId' => 1,
     'id' => 1
 ];
+$success = false;
+
+$errorMessage = 'Title must be set';
+
 ?>
 
 <html lang="en">
@@ -37,6 +42,7 @@ $task = [
         </div>
     </header>
     <main>
+        <?php if ($success === true): ?>
 	    <section class="mx-auto max-w-2xl px-4">
             <div class=" mx-auto mt-5 rounded-2xl max-w-xl shadow-sm bg-white text-light-bronze-800 ring-1 ring-chartreuse-100">
                 <div class=" flex flex-col items-center justify-center rounded-t-2xl py-2 bg-linear-to-r from-chartreuse-50 to-malachite-green-100 border-b-2 border-chartreuse-100 ">
@@ -46,20 +52,44 @@ $task = [
                     </svg>
                 </div>
                 <div class="mx-auto max-w-md flex flex-col justify-center items-center">
-                        <div class="mx-auto flex justify-center items-center py-4 pt-6">
-                           <p class=" text-lg">The following task has been created</p>
+                    <div class="mx-auto flex justify-center items-center py-4 pt-6">
+                        <p class=" text-lg">The following task has been created</p>
                         </div>
-                        <div class="mx-auto w-60 bg-chartreuse-50 opacity-50 flex flex-col justify-center items-center py-3 px-5 mb-6">
-                            <p class="w-full break-words text-center">#<?= $task['id'] ?> <?= $task['title'] ?> </p>
-                            <p class="w-full break-words text-center">State: <?= $task['taskState'] ?> </p>
-                        </div>
-                        <div class="mx-auto flex justify-center items-center gap-5 py-4">
-                            <a class= "underline underline-offset-5"href="/">your tasks</a>
-                            <button type="submit" class=" cursor-pointer bg-amber-50 ring-1 ring-amber-100  text-amber-600 text-base font-semibold tracking-tight shadow-md py-1 px-2 rounded-md ">Start Task</button>
-                </div>
+                    <div class="mx-auto w-60 bg-chartreuse-50/40 flex flex-col justify-center items-center py-3 px-5 mb-3 rounded-sm text-chartreuse-600">
+                        <p class="w-full break-words text-center">#<?= $task['id'] ?> <?= $task['title'] ?> </p>
+                        <p class="w-full break-words text-center">State: <?= $task['taskState'] ?> </p>
+                    </div>
+                    <div class="mx-auto flex justify-center items-center gap-5 py-4">
+                        <a class= "underline underline-offset-5"href="/">your tasks</a>
+                        <button type="submit" class=" cursor-pointer bg-chartreuse-100 ring-1 ring-amber-100 text-chartreuse-900 text-base font-bold tracking-tight shadow-md py-1 px-2 rounded-md ">Start Task</button>
+                    </div>
                 </div>
             </div>
         </section>
+        <?php else: ?>
+                <section class="mx-auto max-w-2xl px-4">
+            <div class=" mx-auto mt-5 rounded-2xl max-w-xl shadow-sm bg-white text-light-bronze-800 ring-1 ring-red-100">
+                <div class=" flex flex-col items-center justify-center rounded-t-2xl py-2 bg-linear-to-r from-red-50 to-red-100 border-b-2 border-red-100 ">
+                    <p class =" py-5 px-5 pb-1 font-semibold text-2xl text-red-600">Task Not Created</p>
+                    <svg class="w-12 h-12 mb-3 opacity-80 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7.293 7.293a1 1 0 011.414 0L10 8.586l1.293-1.293a1 1 0 111.414 1.414L11.414 10l1.293 1.293a1 1 0 01-1.414 1.414L10 11.414l-1.293 1.293a1 1 0 01-1.414-1.414L8.586 10 7.293 8.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="mx-auto max-w-md flex flex-col justify-center items-center">
+                    <div class="mx-auto flex justify-center items-center py-4 pt-6">
+                        <p class=" text-lg">The new task couldn't be created</p>
+                        </div>
+                    <div class="mx-auto w-60 bg-red-50/40 flex flex-col justify-center items-center py-3 px-5 mb-3 rounded-sm text-red-600">
+                        <p class="w-full break-words text-center">Error: <?= $errorMessage ?> </p>
+                    </div>
+                    <div class="mx-auto flex justify-center items-center gap-5 py-4">
+                        <a class= "underline underline-offset-5"href="/">your tasks</a>
+                        <a href="/" class=" cursor-pointer bg-light-bronze-100 ring-1 ring-light-bronze-100 text-light-bronze-800 text-base font-bold tracking-tight shadow-md py-1 px-2 rounded-md ">New Task</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <?php endif ?>
     </main>
 </body>
 </html>
