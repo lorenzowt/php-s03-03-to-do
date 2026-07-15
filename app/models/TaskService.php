@@ -43,7 +43,7 @@ class TaskService
     private function validateData(array $taskData): array
     {
         $errors = [];
-        if (!isset($taskData['title'])) {
+        if (isset($taskData['title'])) {
 
             $title = $taskData['title'];
 

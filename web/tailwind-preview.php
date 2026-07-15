@@ -2,14 +2,14 @@
 
 <?php
 $task = [
-    'title' => 'Complete a feature',
+    'title' => 'Complete a feature and then see how the amount of mistakes keeps increasing',
     'taskState' => 'pending',
     'startTime' => null,
     'endTime' => null,
     'userId' => 1,
     'id' => 1
 ];
-$success = false;
+$success = true;
 
 $errorMessage = 'Title must be set';
 
@@ -53,10 +53,10 @@ $errorMessage = 'Title must be set';
                 </div>
                 <div class="mx-auto max-w-md flex flex-col justify-center items-center">
                     <div class="mx-auto flex justify-center items-center py-4 pt-6">
-                        <p class=" text-lg">The following task has been created</p>
+                        <p class=" text-chartreuse-700 text-lg">The following task has been created</p>
                         </div>
-                    <div class="mx-auto w-60 bg-chartreuse-50/40 flex flex-col justify-center items-center py-3 px-5 mb-3 rounded-sm text-chartreuse-600">
-                        <p class="w-full break-words text-center">#<?= $task['id'] ?> <?= $task['title'] ?> </p>
+                    <div class="mx-auto w-90 bg-chartreuse-50/40 flex flex-col justify-center items-center py-3 px-5 mb-3 rounded-sm text-chartreuse-400">
+                        <p class=" font-semibold w-full break-words text-center">#<?= $task['id'] ?> <?= $task['title'] ?> </p>
                         <p class="w-full break-words text-center">State: <?= $task['taskState'] ?> </p>
                     </div>
                     <div class="mx-auto flex justify-center items-center gap-5 py-4">
