@@ -25,5 +25,10 @@ class TaskController extends ApplicationController
         
     }
 
-    public function l
+    public function listAction()
+    {
+        $taskList = $this->taskService->listTasks();
+
+        $this->view->taskList = $taskList;
+    }
 }
