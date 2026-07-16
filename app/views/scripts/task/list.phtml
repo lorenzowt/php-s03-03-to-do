@@ -1,0 +1,57 @@
+<?php
+$taskList = $this->taskList;
+$totalTasks = count($taskList);
+$stateCount = ['pending' => 0, 'started' => 0, 'completed' => 0];
+foreach ($taskList as $task) {
+    $state = $task->getTaskState()->value;
+    $stateCount[$state]++;
+}
+
+$stateStyles = [
+    'pending' => ['label' => 'Not started', 'class' => 'bg-amber-50/50 text-amber-700 ring-amber-600/20'],
+    'started' => ['label' => 'Started', 'class' => 'bg-violet-50 text-violet-700 ring-violet-600/20'],
+    'completed' => ['label' => 'Completed', 'class' => 'bg-chartreuse-50 text-chartreuse-600 ring-chartreuse-600/20'],
+];
+?>
+<div class="max-w-2xl mx-auto px-3">
+    <section class="mb-8 mt-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+        <div>
+            <h1 class="text-3xl font-bold tracking-tight text-amber-700 sm:text-4xl">My tasks</h1>
+            <p class="mt-2 text-md text-amber-800">Take it one <span class="italic">petite</span> task at a time</p>
+        </div>
+        <a href="<?= $this->baseUrl() ?>/task/new" class=" gap-2 rounded-lg bg-chartreuse-500 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-chartreuse-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Create a task <span aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="mb-8 grid gap-4 sm:grid-cols-3" aria-label="Task summary">
+        <div class="rounded-2xl border border-amber-200 bg-amber-50/50 p-5"><p class="text-sm font-medium text-amber-600">Pending</p><p class="mt-2 text-3xl font-bold tracking-tight text-amber-800"><?= $stateCount['pending'] ?></p></div>
+        <div class="rounded-2xl border border-violet-200 bg-violet-50/50 p-5 shadow-soft"><p class="text-sm font-medium text-violet-600">Started</p><p class="mt-2 text-3xl font-bold tracking-tight text-violet-800"><?= $stateCount['started'] ?></p></div>
+        <div class="rounded-2xl border border-chartreuse-200 bg-chartreuse-50/50 p-5"><p class="text-sm font-medium text-chartreuse-600">Completed</p><p class="mt-2 text-3xl font-bold tracking-tight text-emerald-900"><?= $stateCount['completed'] ?></p></div>
+    </section>
+
+    <?php if (empty($taskList)): ?>
+    <section class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center shadow-soft ">
+        <div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-chartreuse-50 text-2xl text-chartreuse-600">✓</div>
+        <h2 class="mt-5 text-xl font-bold text-stone-800">Your task list is clear</h2>
+        <p class="mt-2 text-stone-800">Create your first task to start planning your day.</p>
+        <a href="<?= $this->baseUrl() ?>/task/new" class="mt-6 inline-flex rounded-lg bg-chartreuse-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-chartreuse-600">Create first task</a>
+    </section>
+
+    <?php else: ?>
+    <section class="overflow-hidden rounded-2xl border border-amber-50 bg-white shadow-soft">
+        <div class="flex items-center justify-between border-b border-amber-50 px-5 py-4 sm:px-6"><h2 class="font-bold text-stone-700">Task list</h2><span class="text-sm text-amber-600"><?= $totalTasks ?> <?= $totalTasks === 1 ? 'task' : 'tasks' ?></span></div>
+        <div class="divide-y divide-amber-50">
+            <?php foreach ($taskList as $task): ?>
+                <?php $state = $task->getTaskState()->value; $style = $stateStyles[$state] ?? $stateStyles['pending']; ?>
+                <a href="<?= $this->baseUrl() ?>/task/show?id=<?= $task->getId() ?>" class="group flex flex-col gap-4 px-5 py-5 transition hover:bg-stone-100/80 sm:flex-row sm:items-center sm:px-6">
+                    <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-stone-100 text-sm font-bold text-stone-500">#<?= $task->getId() ?></span>
+                    <span class="min-w-0 flex-1"><span class="block truncate font-semibold text-stone-700 group-hover:text-malachite-green-500"><?= htmlspecialchars($task->getTitle()) ?></span><span class="mt-1 block text-sm text-stone-500"><?= $task->getStartTime() ? 'Started ' . htmlspecialchars($task->getStartTime()) : 'Not started yet' ?></span></span>
+                    <span class="inline-flex w-fit items-center rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset <?= $style['class'] ?>"><?= $style['label'] ?></span>
+                    <span class="hidden text-lg text-amber-400 transition group-hover:translate-x-1 group-hover:text-chartreuse-400 sm:block" aria-hidden="true">→</span>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </section>
+    <?php endif; ?>
+    
+
+</div>
