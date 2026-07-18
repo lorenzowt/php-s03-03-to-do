@@ -37,6 +37,17 @@ class TaskRepository
         return $taskList;
     }
 
+    public function findById(int $id): ?Task
+    {
+        $tasksData = $this->loadData()['tasks'];
+
+        if (!isset($tasksData[$id])) {
+            return null;
+        }
+
+        return $this->hydrate($tasksData[$id]);
+    }
+
     private function loadData(): array 
     {
         $jsonString = file_get_contents($this->jsonPath);
