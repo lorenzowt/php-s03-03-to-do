@@ -57,6 +57,21 @@ class TaskRepository
         $this->saveData($tasksData);
     }
 
+    public function delete(int $id): bool
+    {
+        $tasksData = $this->loadData();
+
+        if (!isset($tasksData['tasks'][$id])) {
+            return false;
+        }
+
+        unset($tasksData['tasks'][$id]);
+
+        $this->saveData($tasksData);
+
+        return true;
+    }
+
     private function loadData(): array 
     {
         $jsonString = file_get_contents($this->jsonPath);
