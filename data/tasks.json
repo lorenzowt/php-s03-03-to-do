@@ -17,14 +17,6 @@
             "endTime": "2026-07-19 15:14:05",
             "userId": 1
         },
-        "7": {
-            "id": 7,
-            "title": "Trial task",
-            "taskState": "started",
-            "startTime": "2026-07-19 15:16:21",
-            "endTime": null,
-            "userId": 1
-        },
         "8": {
             "id": 8,
             "title": "One more time",
