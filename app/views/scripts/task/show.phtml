@@ -1,0 +1,68 @@
+<?php $stateStyles = [
+    'pending' => ['cardColors' => 'border-amber-200 bg-amber-50/50', 'idColor' => 'text-amber-600', 'titleColor' => 'text-amber-700' ],
+    'started' => ['cardColors' => 'border-violet-200 bg-violet-50/50', 'idColor' => 'text-violet-600', 'titleColor' => 'text-violet-800' ],
+    'completed' => ['cardColors' => 'border-chartreuse-200 bg-chartreuse-50/50', 'idColor' => 'text-chartreuse-600', 'titleColor' => 'text-emerald-900' ],
+]?>
+<?php if (!$this->actionResult->isSuccessful()): ?>
+    <?php $error = $this->actionResult->getErrors()[0] ?>
+    <section class="mx-auto max-w-2xl px-4 mt-10 flex flex-col justify-center">
+        <div class="task-card flex flex-col justify-center">
+            <div class=" w-full flex flex-col items-center mx-auto rounded-t-2xl py-2 bg-linear-to-r from-red-50/50 to-red-100/50 ">
+                <p class =" py-5 px-5 pb-1 font-semibold text-2xl text-red-500/80">Task Not Found</p>
+                <svg class="w-9 h-9 mb-3 text-red-400/40" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-11a1 1 0 112 0v4a1 1 0 11-2 0V7zm1 8a1.25 1.25 0 100-2.5A1.25 1.25 0 0010 15z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <div class="mx-auto max-w-md flex flex-col justify-center items-center pt-14 pb-10">
+                <div class="mx-auto flex justify-center items-center">
+                   <p class="  text-md">The new task couldn't be created</p>
+                </div>
+                <div class="mx-auto w-60 bg-red-50/40 flex flex-col justify-center items-center py-3 px-5 mt-4 rounded-sm text-red-600">             
+                    <p class="w-full break-words text-center">Error: <?= $error ?> </p>
+                </div>
+                <div class="mx-auto flex justify-center items-center gap-5 mt-12">
+                    <a href="<?=  $this->baseUrl() ?>/task/list" class= "underline underline-offset-5"href="/">your tasks</a>
+                    <a href="<?=  $this->baseUrl() ?>/task/new" class=" cursor-pointer bg-light-bronze-100 ring-1 ring-light-bronze-100 text-light-bronze-800 text-base font-bold tracking-tight shadow-md py-1 px-2 rounded-md ">New Task</a>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php else: ?>
+    <?php $task = $this->actionResult->getTask() ?>
+    <?php $taskState = $task->getTaskState()->value ?>
+    <section class="mx-auto max-w-2xl px-4 mt-10 flex flex-col justify-center">
+
+        <div class="rounded-2xl border p-5 <?= $stateStyles[$taskState]['cardColors'] ?>">
+            <p class="text-md font-medium <?= $stateStyles[$taskState]['idColor'] ?>">#<?= $task->getId() ?></p>
+            <p class="mt-2 mb-2 text-3xl font-bold tracking-tight <?= $stateStyles[$taskState]['titleColor'] ?>"><?= htmlspecialchars($task->getTitle()) ?></p>
+        </div>
+        <div class=" mt-6 grid grid-cols-1 place-items-center gap-4 px-3 sm:grid-cols-2">
+            <div class="info-card py-6 px-3 pl-5 w-full">
+                <p class="tracking-tight text-lg font-semibold text-light-bronze-800">Task Status</p>
+                <p class="mt-2 text-light-bronze-800"><?= ucfirst($task->getTaskState()->value) ?></p>
+            </div>
+            <div class="info-card py-6 px-3 pl-5 w-full">
+                <p class="tracking-tight text-lg font-semibold text-light-bronze-800">Task Start Time</p>
+                <p class="mt-2  text-light-bronze-800"><?= $task->getStartTime() ?? 'Task not started yet' ?></p>
+            </div>
+            <div class="info-card py-6 px-3 pl-5 w-full">
+                <p class="tracking-tight text-lg font-semibold text-light-bronze-800">Task Completion Time</p>
+                <p class="mt-2  text-light-bronze-800"><?= $task->getEndTime() ?? 'Task not completed yet' ?></p>
+            </div>
+            <div class="info-card py-6 px-3 pl-5 w-full">
+                <p class="tracking-tight text-lg font-semibold text-light-bronze-800">Task Creator</p>
+                <p class="mt-2 text-light-bronze-800">User ID: <?= $task->getUserId()?></p>
+            </div>
+            </div>
+        </div>
+        <div class="mt-8 mx-auto gap-6 text-center w-full">
+            <div class="w-full mx-auto flex justify-center mb-6 sm:gap-6 gap-2">
+                <a href="<?=  $this->baseUrl() ?>/task/update?action=start" class=" cursor-pointer border border-violet-200/60 bg-violet-50/50 text-violet-600 text-base font-bold tracking-tight shadow-md py-2 px-3 rounded-md ">Start Task</a>
+                <a href="<?=  $this->baseUrl() ?>/task/update?action=complete" class=" cursor-pointer border border-chartreuse-200/60 bg-chartreuse-50/50 text-emerald-800 text-base font-bold tracking-tight shadow-md py-2 px-3 rounded-md ">Complete Task</a>
+                <a href="<?=  $this->baseUrl() ?>/task/edit" class=" cursor-pointer bg-light-bronze-100 border border-light-bronze-400/60 text-light-bronze-800 text-base font-bold tracking-tight shadow-md py-2 px-3 rounded-md ">Edit Task</a>
+                <a href="<?=  $this->baseUrl() ?>/task/delete" class=" cursor-pointer bg-stone-100 border border-stone-400/60 text-stone-800 text-base font-bold tracking-tight shadow-md py-2 px-3 rounded-md ">Delete Task</a>
+            </div>   
+            <a href="<?=  $this->baseUrl() ?>/task/list" class= "underline underline-offset-5">your tasks</a>
+        </div>
+    </section>
+<?php endif ?>

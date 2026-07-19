@@ -12,7 +12,7 @@
         "2": {
             "id": 2,
             "title": "feed cat",
-            "taskState": "pending",
+            "taskState": "completed",
             "startTime": null,
             "endTime": null,
             "userId": 1
