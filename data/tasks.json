@@ -1,20 +1,12 @@
 {
-    "nextId": 12,
+    "nextId": 15,
     "tasks": {
         "5": {
             "id": 5,
             "title": "become the baddiest",
-            "taskState": "completed",
-            "startTime": "2026-07-19 15:09:42",
-            "endTime": "2026-07-19 15:11:53",
-            "userId": 1
-        },
-        "6": {
-            "id": 6,
-            "title": "Trial Task",
-            "taskState": "completed",
-            "startTime": "2026-07-19 15:13:25",
-            "endTime": "2026-07-19 15:14:05",
+            "taskState": "started",
+            "startTime": "2026-07-19 21:01:47",
+            "endTime": null,
             "userId": 1
         },
         "8": {
@@ -44,6 +36,30 @@
         "11": {
             "id": 11,
             "title": "hacer pull request",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        },
+        "12": {
+            "id": 12,
+            "title": "Por favor functiona",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        },
+        "13": {
+            "id": 13,
+            "title": "y ahora?",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        },
+        "14": {
+            "id": 14,
+            "title": "crec que ara si",
             "taskState": "pending",
             "startTime": null,
             "endTime": null,

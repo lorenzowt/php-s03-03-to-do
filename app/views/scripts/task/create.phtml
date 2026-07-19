@@ -30,7 +30,7 @@
     <?php $task = $this->actionResult->getTask() ?>
     <?php $taskState = $task->getTaskState()->value ?>
     <section class="mx-auto max-w-2xl px-4 mt-6 flex flex-col justify-center">
-        <div class="rounded-2xl w-max border bg-malachite-green-100 border-malachite-green-400/60">
+        <div class="rounded-2xl w-max border bg-malachite-green-100/60 border-malachite-green-400/60">
             <p class="py-2 px-5 text-md font-semibold tracking-tight text-malachite-green-800 ?>">Task created correctly</p>
         </div>
         <div class="mt-6 rounded-2xl border p-5 <?= $stateStyles[$taskState]['cardColors'] ?>">
