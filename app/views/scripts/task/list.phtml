@@ -37,7 +37,7 @@ $stateStyles = [
     </section>
 
     <?php else: ?>
-    <section class="overflow-hidden rounded-2xl border border-amber-50 bg-white shadow-soft">
+    <section class="overflow-hidden rounded-2xl border border-amber-50 bg-white/60 shadow-soft">
         <div class="flex items-center justify-between border-b border-amber-50 px-5 py-4 sm:px-6"><h2 class="font-bold text-stone-700">Task list</h2><span class="text-sm text-amber-600"><?= $totalTasks ?> <?= $totalTasks === 1 ? 'task' : 'tasks' ?></span></div>
         <div class="divide-y divide-amber-50">
             <?php foreach ($taskList as $task): ?>

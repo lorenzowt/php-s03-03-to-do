@@ -89,6 +89,48 @@ class TaskService
         return TaskActionResult::success($task);
     }
 
+    public function reset(int $id):TaskActionResult
+    {
+        $task = $this->taskRepository->findById($id);
+        
+        if ($task === null) {
+            return TaskActionResult::failure(["task with ID: $id does not exist"]);
+        }
+
+        $taskState = $task->getTaskState();
+
+        if ($taskState === TaskState::PENDING) {
+            return TaskActionResult::failure(["Cannot reset a $taskState->value task"]);
+        }
+
+        $task->reset();
+        
+        $this->taskRepository->update($task);
+
+        return TaskActionResult::success($task);
+    }
+
+    public function restart(int $id):TaskActionResult
+    {
+        $task = $this->taskRepository->findById($id);
+        
+        if ($task === null) {
+            return TaskActionResult::failure(["task with ID: $id does not exist"]);
+        }
+
+        $taskState = $task->getTaskState();
+
+        if ($taskState === TaskState::PENDING )  {
+            return TaskActionResult::failure(["Cannot restart a $taskState->value task"]);
+        }
+
+        $task->restart();
+        
+        $this->taskRepository->update($task);
+
+        return TaskActionResult::success($task);
+    }
+
     public function delete(int $id): TaskActionResult
     {
         $task = $this->taskRepository->findById($id);

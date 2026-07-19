@@ -8,7 +8,7 @@
     @apply bg-white/10 border border-light-bronze-800/40 rounded-2xl shadow-sm
   }
   .info-card{
-    @apply bg-white/20 border border-light-bronze-800/40 rounded-2xl shadow-sm
+    @apply bg-white/40 border border-light-bronze-800/40 rounded-2xl shadow-sm
   }
   .success-card{
     @apply bg-malachite-green-100/50 border border-malachite-green-800/40 rounded-2xl shadow-sm

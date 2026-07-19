@@ -82,4 +82,11 @@ class Task
         $this->startTime = null;
         $this->endTime = null;
     }
+
+    public function restart()
+    {
+        $this->taskState = TaskState::STARTED;
+        $this->startTime = date('Y-m-d H:i:s');
+        $this->endTime = null;
+    }
 }

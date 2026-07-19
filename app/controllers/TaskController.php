@@ -47,17 +47,24 @@ class TaskController extends ApplicationController
 
     public function updateAction()
     {
-        $id = filter_var($this->_getParam('id'), FILTER_VALIDATE_INT);
+        $taskData = $this->_getAllParams();
 
-        if ($id === false || $id === null) {
-            return $this->view->actionResult = TaskActionResult::failure(['Invalid task ID format']);
+        $taskData = $this->normalizeData($taskData);
+
+        $errors = $this->validateData($taskData);
+
+        if(!empty($errors)) {
+            $this->view->actionResult = TaskActionResult::failure($errors);
+            return;
         }
-
-        $action = $this->_getParam('action');
+        $id = $taskData['id'];
+        $action = $taskData['action'];
 
         $actionResult = match ($action) {
             'start' => $this->taskService->start($id),
             'complete' => $this->taskService->complete($id),
+            'restart' => $this->taskService->restart($id),
+            'reset' => $this->taskService->reset($id),
             default => TaskActionResult::failure(['Invalid action'])
         };
 
@@ -139,7 +146,7 @@ class TaskController extends ApplicationController
             $id = filter_var($taskData['id'], FILTER_VALIDATE_INT);
 
             if ($id === false || $id === null) {
-                $error[] = 'Title was not received';
+                $error[] = 'Invalid ID format';
             }
         }
         return $errors;
