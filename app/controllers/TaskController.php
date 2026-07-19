@@ -71,11 +71,86 @@ class TaskController extends ApplicationController
         $id = filter_var($this->_getParam('id'), FILTER_VALIDATE_INT);
 
         if ($id === false || $id === null) {
-            return $this->view->actionResult = TaskActionResult::failure(['Invalid task ID format']);
+            $this->view->actionResult = TaskActionResult::failure(['Invalid task ID format']);
+            return;
         }
 
         $actionResult = $this->taskService->delete($id);
 
         $this->view->actionResult = $actionResult;
+    }
+
+    public function saveAction()
+    {
+        $taskData = $this->_getAllParams();
+
+        $taskData = $this->normalizeData($taskData);
+
+        $errors = $this->validateData($taskData);
+
+        if(!empty($errors)) {
+            $this->view->actionResult = TaskActionResult::failure($errors);
+            return;
+        }
+
+        $actionResult = $this->taskService->edit($taskData);
+ 
+        $this->view->actionResult = $actionResult;
+        
+    }
+
+    public function editAction()
+    {
+        $id = $this->_getParam('id');
+
+        $errors = $this->validateData([$id]);
+
+        if(!empty($errors)) {
+            $this->view->actionResult = TaskActionResult::failure($errors);
+            return;
+        }
+
+        $actionResult = $this->taskService->findById($id);
+
+        $this->view->actionResult = $actionResult;
+
+    }
+    private function validateData(array $taskData): array
+    {
+        $errors = [];
+        if (isset($taskData['title'])) {
+
+            $title = $taskData['title'];
+
+            if ($title === '') {
+                $errors[] = 'Title is required';
+            }
+
+            if (strlen($title) > 150) {
+                $errors[] = 'Title cannot be longer than 150 characters';
+            }
+        }
+        else {
+            $error[] = 'Title was not received';
+        }
+
+        if (isset($taskData['id'])) {
+        
+            $id = filter_var($taskData['id'], FILTER_VALIDATE_INT);
+
+            if ($id === false || $id === null) {
+                $error[] = 'Title was not received';
+            }
+        }
+        return $errors;
+    }
+
+    private function normalizeData(array $taskData): array
+    {
+        if (isset($taskData['title'])){
+            $taskData['title'] = trim($taskData['title']);
+        }
+
+        return $taskData;
     }
 }

@@ -29,6 +29,11 @@ class Task
         $this->id = $id;
     }
 
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
     public function getTaskState()
     {
         return $this->taskState;

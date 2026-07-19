@@ -93,16 +93,33 @@ class TaskService
     {
         $task = $this->taskRepository->findById($id);
 
-        if(!$this->taskRepository->delete($id)) {
+        if (!$this->taskRepository->delete($id)) {
             return TaskActionResult::failure(["Task with ID: $id does not exist"]);
         }
 
         return TaskActionResult::success($task);
     }
 
+    public function edit(array $taskData): TaskActionResult
+    {
+        $id = $taskData['id'];
+
+        $task = $this->taskRepository->findById($id); 
+
+        if ($task === null){
+            return TaskActionResult::failure(["Task with ID: $id does not exist"]);
+        }
+        
+        $task->setTitle($taskData['title']);
+
+        $this->taskRepository->update($task);
+
+        return TaskActionResult::success($task);
+    }
+
     private function normalizeData(array $taskData): array
     {
-        if (!isset($taskData['title'])){
+        if (isset($taskData['title'])){
             $taskData['title'] = trim($taskData['title']);
         }
 
