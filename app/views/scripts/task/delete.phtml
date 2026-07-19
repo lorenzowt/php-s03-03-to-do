@@ -8,7 +8,7 @@
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-11a1 1 0 112 0v4a1 1 0 11-2 0V7zm1 8a1.25 1.25 0 100-2.5A1.25 1.25 0 0010 15z" clip-rule="evenodd"/>
                 </svg>
             </div>
-            <div class="mx-auto max-w-md flex flex-col justify-center items-center pt-14 pb-10">
+            <div class="mx-auto max-w-md flex flex-col justify-center items-center pt-14 pb-6">
                 <div class="mx-auto flex justify-center items-center">
                     <p class="  text-md">The requested task couldn't be deleated</p>
                 </div>
@@ -24,26 +24,19 @@
     </section>
 <?php else: ?>
     <?php $task = $this->actionResult->getTask() ?>
-        <section class="mx-auto max-w-2xl px-4 mt-10 flex flex-col justify-center">
-        <div class="task-card flex flex-col justify-center">
-            <div class=" w-full flex flex-col items-center mx-auto rounded-t-2xl py-2 bg-linear-to-r from-red-50/50 to-red-100/50 ">
-                <p class =" py-5 px-5 pb-1 font-semibold text-2xl text-red-500/80">Task deleted successfully</p>
-                <svg class="w-9 h-9 mb-3 text-red-400/40" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-11a1 1 0 112 0v4a1 1 0 11-2 0V7zm1 8a1.25 1.25 0 100-2.5A1.25 1.25 0 0010 15z" clip-rule="evenodd"/>
-                </svg>
-            </div>
-            <div class="mx-auto max-w-md flex flex-col justify-center items-center pt-14 pb-10">
-                <div class="mx-auto flex justify-center items-center">
-                    <p class="  text-md">The requested was deleted</p>
-                </div>
-                <div class="mx-auto w-60 bg-red-50/40 flex flex-col justify-center items-center py-3 px-5 mt-4 rounded-sm text-red-600">             
-                    <p class="w-full break-words text-center">#<?= $task->getId() ?>  <?= htmlspecialchars($task->getTitle()) ?></p>
-                </div>
-                <div class="mx-auto flex justify-center items-center gap-5 mt-12">
-                    <a href="<?=  $this->baseUrl() ?>/task/list" class= "underline underline-offset-5"href="/">your tasks</a>
-                    <a href="<?=  $this->baseUrl() ?>/task/new" class=" cursor-pointer bg-light-bronze-100 ring-1 ring-light-bronze-100 text-light-bronze-800 text-base font-bold tracking-tight shadow-md py-1 px-2 rounded-md ">New Task</a>
-                </div>
-            </div>
+    <?php $taskTitle = $task->getTitle() ?>
+    <?php $taskId = $task->getId() ?>
+    <section class="mx-auto max-w-2xl px-4 mt-10 flex flex-col justify-center">
+        <div class="rounded-2xl w-max border success-card">
+            <p class="py-2 px-5 text-md font-semibold tracking-tight">Task Deleted Correctly</p>
+        </div>
+        <div class="mt-5 rounded-2xl border px-5 py-3 bg-stone-100 ?>">
+            <p class="text-md font-medium">Task #<?= $taskId ?></p>
+            <p class="mb-1 text-3xl font-bold tracking-tight?>"><?= htmlspecialchars($taskTitle) ?></p>
+        </div>
+         <div class="mx-auto flex justify-center items-center gap-5 mt-10">
+            <a href="<?=  $this->baseUrl() ?>/task/list" class= "underline underline-offset-5"href="/">your tasks</a>
+            <a href="<?=  $this->baseUrl() ?>/task/new" class=" cursor-pointer bg-light-bronze-100 ring-1 ring-light-bronze-100 text-light-bronze-800 text-base font-bold tracking-tight shadow-md py-1 px-2 rounded-md ">New Task</a>
         </div>
     </section>
 <?php endif ?>

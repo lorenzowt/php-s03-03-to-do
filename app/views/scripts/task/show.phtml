@@ -60,7 +60,7 @@
                 <a href="<?=  $this->baseUrl() ?>/task/update?id=<?= $task->getId() ?>&action=start" class=" cursor-pointer border border-violet-200/60 bg-violet-50/50 text-violet-600 text-base font-bold tracking-tight shadow-md py-2 px-3 rounded-md ">Start Task</a>
                 <a href="<?=  $this->baseUrl() ?>/task/update?id=<?= $task->getId() ?>&action=complete" class=" cursor-pointer border border-chartreuse-200/60 bg-chartreuse-50/50 text-emerald-800 text-base font-bold tracking-tight shadow-md py-2 px-3 rounded-md ">Complete Task</a>
                 <a href="<?=  $this->baseUrl() ?>/task/edit" class=" cursor-pointer bg-light-bronze-100 border border-light-bronze-400/60 text-light-bronze-800 text-base font-bold tracking-tight shadow-md py-2 px-3 rounded-md ">Edit Task</a>
-                <a href="<?=  $this->baseUrl() ?>/task/delete" class=" cursor-pointer bg-stone-100 border border-stone-400/60 text-stone-800 text-base font-bold tracking-tight shadow-md py-2 px-3 rounded-md ">Delete Task</a>
+                <a href="<?=  $this->baseUrl() ?>/task/delete?id=<?= $task->getId() ?>" class=" cursor-pointer bg-stone-100 border border-stone-400/60 text-stone-800 text-base font-bold tracking-tight shadow-md py-2 px-3 rounded-md ">Delete Task</a>
             </div>   
             <a href="<?=  $this->baseUrl() ?>/task/list" class= "underline underline-offset-5">your tasks</a>
         </div>
