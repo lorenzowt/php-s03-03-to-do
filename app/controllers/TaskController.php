@@ -44,4 +44,25 @@ class TaskController extends ApplicationController
 
         $this->view->actionResult = $actionResult;   
     }
+
+    public function updateAction()
+    {
+        $id = filter_var($this->_getParam('id'), FILTER_VALIDATE_INT);
+
+        if ($id === false || $id === null) {
+            return $this->view->actionResult = TaskActionResult::failure(['Invalid task ID format']);
+        }
+
+        $action = $this->_getParam('action');
+
+        $actionResult = match ($action) {
+            'start' => $this->taskService->start($id),
+            'complete' => $this->taskService->complete($id),
+            default => TaskActionResult::failure(['Invalid action'])
+        };
+
+        $this->view->actionResult = $actionResult;
+
+        $this->view->action = $action;
+    }
 }

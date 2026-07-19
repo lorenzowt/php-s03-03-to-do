@@ -48,7 +48,7 @@ class TaskRepository
         return $this->hydrate($tasksData[$id]);
     }
 
-    public function start(Task $task)
+    public function update(Task $task)
     {
         $tasksData = $this->loadData();
 

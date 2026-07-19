@@ -47,7 +47,7 @@ class TaskService
         return TaskActionResult::success($task);
     }
 
-    public function start(int $id, string $action): TaskActionResult
+    public function start(int $id): TaskActionResult
     {
         $task = $this->taskRepository->findById($id);
         
@@ -55,9 +55,39 @@ class TaskService
             return TaskActionResult::failure(["task with ID: $id does not exist"]);
         }
 
-        $task
+        $taskState = $task->getTaskState();
+
+        if ($taskState === TaskState::COMPLETED || $taskState === TaskState::STARTED) {
+            return TaskActionResult::failure(["Cannot start a $taskState->value task"]);
+        }
+
+        $task->start();
+        
+        $this->taskRepository->update($task);
+
+        return TaskActionResult::success($task);
     }
 
+    public function complete(int $id): TaskActionResult
+    {
+        $task = $this->taskRepository->findById($id);
+        
+        if ($task === null) {
+            return TaskActionResult::failure(["task with ID: $id does not exist"]);
+        }
+
+        $taskState = $task->getTaskState();
+
+        if ($taskState === TaskState::COMPLETED || $taskState === TaskState::PENDING) {
+            return TaskActionResult::failure(["Cannot complete a $taskState->value task"]);
+        }
+
+        $task->complete();
+        
+        $this->taskRepository->update($task);
+
+        return TaskActionResult::success($task);
+    }
     private function normalizeData(array $taskData): array
     {
         if (!isset($taskData['title'])){
