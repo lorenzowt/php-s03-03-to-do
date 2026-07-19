@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@layer components {
+  .task-card{
+    @apply rounded-2xl shadow-sm bg-white/60 text-light-bronze-800 ring-1 ring-red-100 
+  }
+  .task-card-base{
+    @apply bg-white/10 border border-light-bronze-800/40 rounded-2xl shadow-sm
+  }
+  .info-card{
+    @apply bg-white/20 border border-light-bronze-800/40 rounded-2xl shadow-sm
+  }
+}
+
 @theme {
   /* Tea Green */
   --color-tea-green: #ccd5ae;
