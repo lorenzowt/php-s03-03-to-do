@@ -36,7 +36,7 @@
         </div>
         <?php elseif($this->action === 'complete'): ?>
         <div class="rounded-2xl w-max border <?= $stateStyles[$taskState]['cardColors']?>">
-            <p class="py-2 px-5 text-md font-semibold tracking-tight <?= $stateStyles[$taskState]['titleColor'] ?>">Task started correctly</p>
+            <p class="py-2 px-5 text-md font-semibold tracking-tight <?= $stateStyles[$taskState]['titleColor'] ?>">Task completed correctly</p>
         </div>
         <?php endif ?>
         <div class="mt-6 rounded-2xl border p-5 <?= $stateStyles[$taskState]['cardColors'] ?>">
