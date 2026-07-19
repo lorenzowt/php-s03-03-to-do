@@ -1,3 +1,5 @@
+<?php if(!$this->actionResult->isSuccessful()): ?>
+    <?php $error = $this->actionResult->getErrors()[0] ?>
     <section class="mx-auto max-w-2xl px-4 mt-10 flex flex-col justify-center">
         <div class="task-card flex flex-col justify-center">
             <div class=" w-full flex flex-col items-center mx-auto rounded-t-2xl py-2 bg-linear-to-r from-red-50/50 to-red-100/50 ">
@@ -20,3 +22,21 @@
             </div>
         </div>
     </section>
+<?php else: ?>
+    <?php $task = $this->actionResult->getTask() ?>
+    <?php $taskTitle = $task->getTitle() ?>
+    <?php $taskId = $task->getId() ?>
+    <section class="mx-auto max-w-2xl px-4 mt-10 flex flex-col justify-center">
+        <div class="rounded-2xl w-max border success-card">
+            <p class="py-2 px-5 text-md font-semibold tracking-tight">Task Deleted Correctly</p>
+        </div>
+        <div class="mt-5 rounded-2xl border px-5 py-3 bg-stone-100 ?>">
+            <p class="text-md font-medium">Task #<?= $taskId ?></p>
+            <p class="mb-1 text-3xl font-bold tracking-tight?>"><?= htmlspecialchars($taskTitle) ?></p>
+        </div>
+         <div class="mx-auto flex justify-center items-center gap-5 mt-10">
+            <a href="<?=  $this->baseUrl() ?>/task/list" class= "underline underline-offset-5"href="/">your tasks</a>
+            <a href="<?=  $this->baseUrl() ?>/task/new" class=" cursor-pointer bg-light-bronze-100 ring-1 ring-light-bronze-100 text-light-bronze-800 text-base font-bold tracking-tight shadow-md py-1 px-2 rounded-md ">New Task</a>
+        </div>
+    </section>
+<?php endif ?>
