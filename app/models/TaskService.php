@@ -125,7 +125,7 @@ class TaskService
 
     private function normalizeData(array $taskData): array
     {
-        if (!isset($taskData['title'])){
+        if (isset($taskData['title'])){
             $taskData['title'] = trim($taskData['title']);
         }
 
