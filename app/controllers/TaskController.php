@@ -19,8 +19,6 @@ class TaskController extends ApplicationController
     {
         $taskData = $this->_getAllParams();
 
-        
-
         $actionResult = $this->taskService->createTask($taskData);
  
         $this->view->actionResult = $actionResult;
@@ -92,10 +90,10 @@ class TaskController extends ApplicationController
 
         if(!empty($errors)) {
             $this->view->actionResult = TaskActionResult::failure($errors);
-        }
+            return;
         }
 
-        $actionResult = $this->taskService->edit($id, $taskData);
+        $actionResult = $this->taskService->edit($taskData);
  
         $this->view->actionResult = $actionResult;
         
@@ -103,6 +101,18 @@ class TaskController extends ApplicationController
 
     public function editAction()
     {
+        $id = $this->_getParam('id');
+
+        $errors = $this->validateData([$id]);
+
+        if(!empty($errors)) {
+            $this->view->actionResult = TaskActionResult::failure($errors);
+            return;
+        }
+
+        $actionResult = $this->taskService->findById($id);
+
+        $this->view->actionResult = $actionResult;
 
     }
     private function validateData(array $taskData): array

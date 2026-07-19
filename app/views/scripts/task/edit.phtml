@@ -1,0 +1,20 @@
+<?php $task = $this->actionResult->getTask() ?>
+<section class="mx-auto max-w-2xl px-4">
+    <div class=" mx-auto mt-5 rounded-2xl max-w-xl shadow-sm bg-white text-light-bronze-800 ring-1 ring-light-bronze-200">
+        <div class=" rounded-t-2xl py-2 bg-linear-to-r  from-orange-50 to-papaya-whip-100 border-b-2 border-light-bronze-200 ">
+            <p class =" py-5 px-5 font-semibold text-xl text-tea-green-900">Edit Task</p>
+        </div>
+        <div class="mx-auto max-w-md">
+            <form action="<?= $this->baseUrl() ?>/task/save?id=<?= $task->getId() ?>" method="POST" class="mx-auto max-w-md ">
+                <div class="mx-auto flex justify-center items-center gap-4 py-4 pt-6">
+                    <label class=" text-lg text-light-bronze-900 font-medium pl-1">Title:</label>
+                    <input class=" flex-1 px-4 shadow-md ring-2  ring-light-bronze-200 rounded-sm" type="text" id="title" name="title" value="<?= htmlspecialchars($task->getTitle()) ?>">
+                    <input type="hidden" name="id" value="<?= $task->getId() ?>">
+                </div>
+                <div class="mx-auto flex justify-center items-center gap-5 py-4">
+                    <a href="<?= $this->baseUrl() ?>/task/show?id=<?= $task->getId() ?>" class=" pr-0">Cancel</a>
+                    <button type="submit" class=" cursor-pointer bg-amber-50 ring-1 ring-amber-100  text-amber-600 text-base font-semibold tracking-tight shadow-md py-1 px-2 rounded-md ">Submit</button>
+                </div>
+        </div>
+    </div>
+</section>

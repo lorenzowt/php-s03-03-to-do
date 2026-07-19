@@ -9,6 +9,7 @@
       "Courier New", monospace;
     --color-red-50: #eae3e3;
     --color-red-100: #d7c8c8;
+    --color-red-200: #c5acac;
     --color-red-400: #9e7979;
     --color-red-500: #826464;
     --color-red-600: #685050;
@@ -88,6 +89,9 @@
     --color-chartreuse-600: #4e5944;
     --color-chartreuse-700: #3b4333;
     --color-chartreuse-900: #181b14;
+    --color-fuschia-200: #c4abbe;
+    --color-fuschia-400: #9b7792;
+    --color-fuschia-600: #664e60;
     --color-malachite-green-100: #bdd0c1;
     --color-malachite-green-400: #6a8a72;
     --color-malachite-green-500: #57725e;
@@ -480,6 +484,12 @@
       border-color: color-mix(in oklab, var(--color-chartreuse-200) 60%, transparent);
     }
   }
+  .border-fuschia-400\/60 {
+    border-color: color-mix(in srgb, #9b7792 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-fuschia-400) 60%, transparent);
+    }
+  }
   .border-light-bronze-200 {
     border-color: var(--color-light-bronze-200);
   }
@@ -491,6 +501,12 @@
   }
   .border-red-100 {
     border-color: var(--color-red-100);
+  }
+  .border-red-400\/60 {
+    border-color: color-mix(in srgb, #9e7979 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-red-400) 60%, transparent);
+    }
   }
   .border-slate-300 {
     border-color: var(--color-slate-300);
@@ -543,6 +559,12 @@
   .bg-cornsilk-200 {
     background-color: var(--color-cornsilk-200);
   }
+  .bg-fuschia-200\/20 {
+    background-color: color-mix(in srgb, #c4abbe 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-fuschia-200) 20%, transparent);
+    }
+  }
   .bg-light-bronze-100 {
     background-color: var(--color-light-bronze-100);
   }
@@ -556,6 +578,12 @@
     background-color: color-mix(in srgb, #eae3e3 40%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-red-50) 40%, transparent);
+    }
+  }
+  .bg-red-200\/20 {
+    background-color: color-mix(in srgb, #c5acac 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-red-200) 20%, transparent);
     }
   }
   .bg-stone-100 {
@@ -705,6 +733,9 @@
   .py-16 {
     padding-block: calc(var(--spacing) * 16);
   }
+  .pt-2 {
+    padding-top: calc(var(--spacing) * 2);
+  }
   .pt-6 {
     padding-top: calc(var(--spacing) * 6);
   }
@@ -811,6 +842,9 @@
   }
   .text-emerald-900 {
     color: var(--color-emerald-900);
+  }
+  .text-fuschia-600 {
+    color: var(--color-fuschia-600);
   }
   .text-light-bronze-800 {
     color: var(--color-light-bronze-800);
@@ -1121,6 +1155,20 @@
       background-color: color-mix(in oklab, var(--color-malachite-green-100) 50%, transparent);
     }
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .update-button {
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    padding-inline: calc(var(--spacing) * 5);
+    padding-block: calc(var(--spacing) * 3);
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+    --tw-tracking: var(--tracking-tight);
+    letter-spacing: var(--tracking-tight);
+    --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
 }
