@@ -1,0 +1,93 @@
+{
+    "nextId": 12,
+    "tasks": {
+        "1": {
+            "id": 1,
+            "title": "Buy milk",
+            "taskState": "completed",
+            "startTime": "2026-07-19 15:20:00",
+            "endTime": "2026-07-19 15:21:43",
+            "userId": 1
+        },
+        "2": {
+            "id": 2,
+            "title": "feed cat",
+            "taskState": "started",
+            "startTime": "2026-07-19 15:22:14",
+            "endTime": null,
+            "userId": 1
+        },
+        "3": {
+            "id": 3,
+            "title": "Learn PHP",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        },
+        "4": {
+            "id": 4,
+            "title": "Be a baddie",
+            "taskState": "completed",
+            "startTime": "2026-07-19 14:48:41",
+            "endTime": "2026-07-19 14:50:04",
+            "userId": 1
+        },
+        "5": {
+            "id": 5,
+            "title": "Be a baddie",
+            "taskState": "completed",
+            "startTime": "2026-07-19 15:09:42",
+            "endTime": "2026-07-19 15:11:53",
+            "userId": 1
+        },
+        "6": {
+            "id": 6,
+            "title": "Trial Task",
+            "taskState": "completed",
+            "startTime": "2026-07-19 15:13:25",
+            "endTime": "2026-07-19 15:14:05",
+            "userId": 1
+        },
+        "7": {
+            "id": 7,
+            "title": "Trial task",
+            "taskState": "started",
+            "startTime": "2026-07-19 15:16:21",
+            "endTime": null,
+            "userId": 1
+        },
+        "8": {
+            "id": 8,
+            "title": "One more time",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        },
+        "9": {
+            "id": 9,
+            "title": "Please work now or I'll go crazy",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        },
+        "10": {
+            "id": 10,
+            "title": "task created without title",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        },
+        "11": {
+            "id": 11,
+            "title": "hacer pull request",
+            "taskState": "pending",
+            "startTime": null,
+            "endTime": null,
+            "userId": 1
+        }
+    }
+}
