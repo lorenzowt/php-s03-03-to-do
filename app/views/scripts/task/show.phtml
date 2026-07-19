@@ -1,7 +1,7 @@
 <?php $stateStyles = [
-    'pending' => ['cardColors' => 'border-amber-200 bg-amber-50/50', 'idColor' => 'text-amber-600', 'titleColor' => 'text-amber-700' ],
-    'started' => ['cardColors' => 'border-violet-200 bg-violet-50/50', 'idColor' => 'text-violet-600', 'titleColor' => 'text-violet-800' ],
-    'completed' => ['cardColors' => 'border-chartreuse-200 bg-chartreuse-50/50', 'idColor' => 'text-chartreuse-600', 'titleColor' => 'text-emerald-900' ],
+    'pending' => ['cardColors' => 'border-amber-200 bg-linear-to-r from-amber-50/50 to-amber-100/50', 'idColor' => 'text-amber-600', 'titleColor' => 'text-amber-700' ],
+    'started' => ['cardColors' => 'border-violet-200 bg-linear-to-r from-violet-50/50 to-violet-100/50', 'idColor' => 'text-violet-600', 'titleColor' => 'text-violet-800' ],
+    'completed' => ['cardColors' => 'border-chartreuse-200 bg-linear-to-r from-chartreuse-50/50 to-chartreuse-100/50', 'idColor' => 'text-chartreuse-600', 'titleColor' => 'text-emerald-900' ],
 ]?>
 <?php if (!$this->actionResult->isSuccessful()): ?>
     <?php $error = $this->actionResult->getErrors()[0] ?>
