@@ -499,6 +499,12 @@
       border-color: color-mix(in oklab, var(--color-light-bronze-400) 60%, transparent);
     }
   }
+  .border-malachite-green-400\/60 {
+    border-color: color-mix(in srgb, #6a8a72 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-malachite-green-400) 60%, transparent);
+    }
+  }
   .border-red-100 {
     border-color: var(--color-red-100);
   }
@@ -570,6 +576,9 @@
   }
   .bg-light-bronze-300 {
     background-color: var(--color-light-bronze-300);
+  }
+  .bg-malachite-green-100 {
+    background-color: var(--color-malachite-green-100);
   }
   .bg-orange-100 {
     background-color: var(--color-orange-100);
