@@ -93,9 +93,32 @@ class TaskService
     {
         $task = $this->taskRepository->findById($id);
 
-        if(!$this->taskRepository->delete($id)) {
+        if (!$this->taskRepository->delete($id)) {
             return TaskActionResult::failure(["Task with ID: $id does not exist"]);
         }
+
+        return TaskActionResult::success($task);
+    }
+
+    public function edit(int $id, array $taskData): TaskActionResult
+    {
+        $task = $this->taskRepository->findById($id); 
+
+        if ($task === null){
+            return TaskActionResult::failure(["Task with ID: $id does not exist"]);
+        }
+
+        $taskData = $this->normalizeData($taskData);
+
+        $errors = $this->validateData($taskData);
+
+        if (!empty($errors)){
+            return TaskActionResult::failure($errors);
+        }
+
+        $task->setTitle($taskData['title']);
+
+        $this->taskRepository->update($task);
 
         return TaskActionResult::success($task);
     }
