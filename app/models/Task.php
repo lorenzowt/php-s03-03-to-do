@@ -58,4 +58,23 @@ class Task
     {
         return $this->userId;
     }
+
+    public function start()
+    {
+        $this->taskState = TaskState::STARTED;
+        $this->startTime = date('Y-m-d H:i:s');
+    }
+
+    public function complete()
+    {
+        $this->taskState = TaskState::COMPLETED;
+        $this->endTime = date('Y-m-d H:i:s');
+    }
+
+    public function reset()
+    {
+        $this->taskState = TaskState::PENDING;
+        $this->startTime = null;
+        $this->endTime = null;
+    }
 }

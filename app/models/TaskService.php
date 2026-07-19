@@ -47,6 +47,17 @@ class TaskService
         return TaskActionResult::success($task);
     }
 
+    public function start(int $id, string $action): TaskActionResult
+    {
+        $task = $this->taskRepository->findById($id);
+        
+        if ($task === null) {
+            return TaskActionResult::failure(["task with ID: $id does not exist"]);
+        }
+
+        $task
+    }
+
     private function normalizeData(array $taskData): array
     {
         if (!isset($taskData['title'])){

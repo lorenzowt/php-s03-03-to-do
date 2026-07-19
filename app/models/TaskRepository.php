@@ -48,6 +48,19 @@ class TaskRepository
         return $this->hydrate($tasksData[$id]);
     }
 
+    public function start(Task $task)
+    {
+        $tasksData = $this->loadData();
+
+        if (!isset($tasksData['tasks'][$task->getId()])) {
+            return null;
+        }
+
+        $tasksData['tasks'][$task->getId()] = $task->toArray();
+
+        $this->saveData($tasksData);
+    }
+
     private function loadData(): array 
     {
         $jsonString = file_get_contents($this->jsonPath);
