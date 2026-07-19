@@ -52,10 +52,6 @@ class TaskRepository
     {
         $tasksData = $this->loadData();
 
-        if (!isset($tasksData['tasks'][$task->getId()])) {
-            return null;
-        }
-
         $tasksData['tasks'][$task->getId()] = $task->toArray();
 
         $this->saveData($tasksData);
