@@ -65,4 +65,17 @@ class TaskController extends ApplicationController
 
         $this->view->action = $action;
     }
+
+    public function deleteAction()
+    {
+        $id = filter_var($this->_getParam('id'), FILTER_VALIDATE_INT);
+
+        if ($id === false || $id === null) {
+            return $this->view->actionResult = TaskActionResult::failure(['Invalid task ID format']);
+        }
+
+        $actionResult = $this->taskService->delete($id);
+
+        $this->view->actionResult = $actionResult;
+    }
 }
