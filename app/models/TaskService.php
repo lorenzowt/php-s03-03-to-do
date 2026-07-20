@@ -10,18 +10,6 @@ class TaskService
 
    public function createTask(array $taskData): TaskActionResult
    {
-        if (!isset($taskData['title'])){
-            return TaskActionResult::failure(['Title is required']);
-        }
-
-        $taskData = $this->normalizeData($taskData);
-
-        $errors = $this->validateData($taskData);
-
-        if (!empty($errors)) {
-            return TaskActionResult::failure($errors);
-        }
-
         $task = new Task(
             $taskData['title']
         );

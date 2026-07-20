@@ -19,7 +19,13 @@ class TaskController extends ApplicationController
     {
         $taskData = $this->_getAllParams();
 
-        $actionResult = $this->taskService->createTask($taskData);
+        $titleData = $this->validateTitle($taskData);
+
+        if ($titleData['error'] !== null) {
+            return TaskActionResult::failure($titleData['error']);
+        }
+
+        $actionResult = $this->taskService->createTask($titleData);
  
         $this->view->actionResult = $actionResult;
         
@@ -34,13 +40,17 @@ class TaskController extends ApplicationController
 
     public function showAction()
     {
-        $id = filter_var($this->_getParam('id'), FILTER_VALIDATE_INT);
+        $taskData = $this->_getAllParams();
 
-        if ($id === false || $id === null) {
-            return $this->view->actionResult = TaskActionResult::failure(['Invalid task ID format']);
+        $taskData = $this->normalizeData($taskData);
+
+        $errors = $this->validateData($taskData);
+
+        if (!empty($errors)) {
+            return TaskActionResult::failure($errors);
         }
 
-        $actionResult = $this->taskService->findById($id);
+        $actionResult = $this->taskService->findById($taskData['id']);
 
         $this->view->actionResult = $actionResult;   
     }
@@ -57,6 +67,7 @@ class TaskController extends ApplicationController
             $this->view->actionResult = TaskActionResult::failure($errors);
             return;
         }
+
         $id = $taskData['id'];
         $action = $taskData['action'];
 
@@ -122,42 +133,76 @@ class TaskController extends ApplicationController
         $this->view->actionResult = $actionResult;
 
     }
-    private function validateData(array $taskData): array
+    private function validateTitle(array $taskData): array
     {
-        $errors = [];
-        if (isset($taskData['title'])) {
-
-            $title = $taskData['title'];
-
-            if ($title === '') {
-                $errors[] = 'Title is required';
-            }
-
-            if (strlen($title) > 150) {
-                $errors[] = 'Title cannot be longer than 150 characters';
-            }
-        }
-        else {
-            $error[] = 'Title was not received';
+        if (!isset($taskData['title'])) {
+            return [
+                'value' => null,
+                'error' => 'Title is required',
+            ];
         }
 
-        if (isset($taskData['id'])) {
-        
-            $id = filter_var($taskData['id'], FILTER_VALIDATE_INT);
+        $title = trim($taskData['title']);
 
-            if ($id === false || $id === null) {
-                $error[] = 'Invalid ID format';
-            }
+        if ($title === '') {
+            return [
+                'value' => null,
+                'error' => 'Title is required',
+            ];
         }
-        return $errors;
+
+        if (strlen($title) > 150) {
+            return [
+                'value' => null,
+                'error' => 'Title cannot be longer than 150 characters',
+            ];
+        }
+
+        return [
+            'value' => $title,
+            'error' => null,
+        ];
     }
 
-    private function normalizeData(array $taskData): array
+    private function validateId(array $taskData): array
     {
-        if (isset($taskData['title'])){
-            $taskData['title'] = trim($taskData['title']);
+        if (!isset($taskData['id'])) {
+            return [
+                'value' => null,
+                'error' => 'ID is required',
+            ];
         }
 
-        return $taskData;
+        $id = filter_var($taskData['id'], FILTER_VALIDATE_INT);
+
+        if ($id === false || $id === null) {
+            return [
+                'value' => null,
+                'error' => 'Invalid ID format',
+            ];
+        }
+
+        return [
+            'value' => $id,
+            'error' => null,
+        ];
+
+    }
+
+    private function validateAction(array $taskData): array 
+    {
+        if (!isset($taskData['action'])) {
+            return [
+                'value' => null,
+                'error' => 'action is required',
+            ];
+        }
+
+        $action = strtolower(trim($taskData['action']));
+
+        return [
+            'value' => $action,
+            'error' => null,
+        ];
     }
 }
