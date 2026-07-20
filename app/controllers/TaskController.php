@@ -25,7 +25,7 @@ class TaskController extends ApplicationController
             return TaskActionResult::failure($titleData['error']);
         }
 
-        $actionResult = $this->taskService->create($titleData);
+        $actionResult = $this->taskService->create($titleData['title']);
  
         $this->view->actionResult = $actionResult;
         
@@ -42,7 +42,7 @@ class TaskController extends ApplicationController
     {
         $taskData = $this->_getAllParams();
 
-        $taskData = $this->normalizeData($taskData);
+        $IdData = $this->normalizeData($taskData);
 
         $errors = $this->validateData($taskData);
 
