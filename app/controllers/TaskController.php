@@ -25,7 +25,7 @@ class TaskController extends ApplicationController
             return TaskActionResult::failure($titleData['error']);
         }
 
-        $actionResult = $this->taskService->createTask($titleData);
+        $actionResult = $this->taskService->create($titleData);
  
         $this->view->actionResult = $actionResult;
         

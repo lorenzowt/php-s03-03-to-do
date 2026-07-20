@@ -8,7 +8,7 @@ class TaskService
             $this->taskRepository = $taskRepository ?? new TaskRepository();
         }
 
-   public function createTask(array $taskData): TaskActionResult
+   public function create(array $taskData): TaskActionResult
    {
         $task = new Task(
             $taskData['title']
