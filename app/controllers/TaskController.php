@@ -42,15 +42,13 @@ class TaskController extends ApplicationController
     {
         $taskData = $this->_getAllParams();
 
-        $IdData = $this->normalizeData($taskData);
+        $idData = $this->validateId($taskData);
 
-        $errors = $this->validateData($taskData);
-
-        if (!empty($errors)) {
-            return TaskActionResult::failure($errors);
+        if ($idData['error'] !== null) {
+            return TaskActionResult::failure($idData['error']);
         }
 
-        $actionResult = $this->taskService->findById($taskData['id']);
+        $actionResult = $this->taskService->findById($idData['id']);
 
         $this->view->actionResult = $actionResult;   
     }
@@ -59,17 +57,20 @@ class TaskController extends ApplicationController
     {
         $taskData = $this->_getAllParams();
 
-        $taskData = $this->normalizeData($taskData);
+        $idData = $this->validateId($taskData);
 
-        $errors = $this->validateData($taskData);
+        $actionData = $this->validateAction($taskData);
 
-        if(!empty($errors)) {
-            $this->view->actionResult = TaskActionResult::failure($errors);
-            return;
+        if ($idData['error'] !== null) {
+            return TaskActionResult::failure($idData['error']);
         }
 
-        $id = $taskData['id'];
-        $action = $taskData['action'];
+        if ($actionData['error'] !== null) {
+            return TaskActionResult::failure($idData['error']);
+        }
+
+        $id = $idData['id'];
+        $action = $actionData['action'];
 
         $actionResult = match ($action) {
             'start' => $this->taskService->start($id),
