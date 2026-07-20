@@ -144,34 +144,4 @@ class TaskService
 
         return TaskActionResult::success($task);
     }
-
-    private function normalizeData(array $taskData): array
-    {
-        if (isset($taskData['title'])){
-            $taskData['title'] = trim($taskData['title']);
-        }
-
-        return $taskData;
-    }
-
-    private function validateData(array $taskData): array
-    {
-        $errors = [];
-        if (isset($taskData['title'])) {
-
-            $title = $taskData['title'];
-
-            if ($title === '') {
-                $errors[] = 'Title is required';
-            }
-
-            if (strlen($title) > 150) {
-                $errors[] = 'Title cannot be longer than 150 characters';
-            }
-        }
-        else {
-            $error[] = 'Title was not received';
-        }
-        return $errors;
-    }
 }

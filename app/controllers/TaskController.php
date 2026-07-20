@@ -87,14 +87,15 @@ class TaskController extends ApplicationController
 
     public function deleteAction()
     {
-        $id = filter_var($this->_getParam('id'), FILTER_VALIDATE_INT);
+        $taskData = $this->_getAllParams();
 
-        if ($id === false || $id === null) {
-            $this->view->actionResult = TaskActionResult::failure(['Invalid task ID format']);
-            return;
+        $idData = $this->validateId($taskData);
+
+        if ($idData['error'] !== null) {
+            return TaskActionResult::failure($idData['error']);
         }
 
-        $actionResult = $this->taskService->delete($id);
+        $actionResult = $this->taskService->delete($idData['id']);
 
         $this->view->actionResult = $actionResult;
     }
@@ -103,14 +104,22 @@ class TaskController extends ApplicationController
     {
         $taskData = $this->_getAllParams();
 
-        $taskData = $this->normalizeData($taskData);
+        $idData = $this->validateId($taskData);
 
-        $errors = $this->validateData($taskData);
+        $titleData = $this->validateTitle($taskData);
 
-        if(!empty($errors)) {
-            $this->view->actionResult = TaskActionResult::failure($errors);
-            return;
+        if ($idData['error'] !== null) {
+            return TaskActionResult::failure($idData['error']);
         }
+
+        if ($titleData['error'] !== null) {
+            return TaskActionResult::failure($idData['error']);
+        }
+
+        $taskData = [
+            'id' => $idData['id'],
+            'title' => $titleData['title']
+        ];
 
         $actionResult = $this->taskService->edit($taskData);
  
@@ -120,16 +129,15 @@ class TaskController extends ApplicationController
 
     public function editAction()
     {
-        $id = $this->_getParam('id');
+        $taskData = $this->_getAllParams();
 
-        $errors = $this->validateData([$id]);
+        $idData = $this->validateId($taskData);
 
-        if(!empty($errors)) {
-            $this->view->actionResult = TaskActionResult::failure($errors);
-            return;
+        if ($idData['error'] !== null) {
+            return TaskActionResult::failure($idData['error']);
         }
 
-        $actionResult = $this->taskService->findById($id);
+        $actionResult = $this->taskService->findById($idData['id']);
 
         $this->view->actionResult = $actionResult;
 
@@ -138,7 +146,7 @@ class TaskController extends ApplicationController
     {
         if (!isset($taskData['title'])) {
             return [
-                'value' => null,
+                'title' => null,
                 'error' => 'Title is required',
             ];
         }
@@ -147,20 +155,20 @@ class TaskController extends ApplicationController
 
         if ($title === '') {
             return [
-                'value' => null,
+                'title' => null,
                 'error' => 'Title is required',
             ];
         }
 
         if (strlen($title) > 150) {
             return [
-                'value' => null,
+                'title' => null,
                 'error' => 'Title cannot be longer than 150 characters',
             ];
         }
 
         return [
-            'value' => $title,
+            'title' => $title,
             'error' => null,
         ];
     }
@@ -169,7 +177,7 @@ class TaskController extends ApplicationController
     {
         if (!isset($taskData['id'])) {
             return [
-                'value' => null,
+                'id' => null,
                 'error' => 'ID is required',
             ];
         }
@@ -178,13 +186,13 @@ class TaskController extends ApplicationController
 
         if ($id === false || $id === null) {
             return [
-                'value' => null,
+                'id' => null,
                 'error' => 'Invalid ID format',
             ];
         }
 
         return [
-            'value' => $id,
+            'id' => $id,
             'error' => null,
         ];
 
@@ -194,7 +202,7 @@ class TaskController extends ApplicationController
     {
         if (!isset($taskData['action'])) {
             return [
-                'value' => null,
+                'action' => null,
                 'error' => 'action is required',
             ];
         }
@@ -202,7 +210,7 @@ class TaskController extends ApplicationController
         $action = strtolower(trim($taskData['action']));
 
         return [
-            'value' => $action,
+            'action' => $action,
             'error' => null,
         ];
     }
