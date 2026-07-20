@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="stylesheet" href="/php-full-stack/php-sprint-3/php-s03-03-to-do/web/stylesheets/output.css">
+    <title>Taskboard</title>
 </head>
-<body>
-	<?php echo $this->content(); ?>
+<body class="min-h-screen bg-cornsilk-200 text-stone-800 antialiased">
+    <header class=" bg-orange-100">
+        <div class="flex mx-auto max-w-6xl justify-between py-6">
+            <a 
+            href="<?=  $this->baseUrl() ?>/task/list"
+            class=" mx-auto text-3xl text-light-bronze-800 font-semibold tracking-tight hover:underline decoration-4 underline-offset-7"
+            >
+                Taskette
+            </a>
+            <a 
+            href="<?=  $this->baseUrl() ?>/task/new"
+            class="mx-auto bg-light-bronze-300 rounded-2xl px-6 py-2.5 text-base font-semibold shadow-sm ring-2 ring-orange-100 text-light-bronze-900"
+            >
+                New task
+            </a>
+        </div>
+    </header>
+    <main>
+	    <?php echo $this->content(); ?>
+    </main>
 </body>
 </html>

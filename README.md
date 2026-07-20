@@ -1,83 +1,218 @@
-# PHP initial Project
-Main structure of php project. Folders / files:
-- **app**
-  - **controllers**
-  - **models**
-  - **views**
-- **config**
-- **lib**
-  - **base**
-- **web**
+# Taskette
 
-### Usage
+Taskette is a task management web application built with **PHP** following the **Model–View–Controller (MVC)** architectural pattern.
 
-The web/index.php is the heart of the system.
-This means that your web applications root folder is the “web” folder.
+The project was developed as part of my PHP Full Stack course to practice object-oriented programming, backend architecture, frontend development, responsive interfaces, JSON persistence, and GitFlow.
 
-All requests go through this file and it decides how the routing of the app
-should be.
-You can add additional hooks in this file to add certain routes.
+---
 
-### Project Structure
+# Features
 
-The root of the project holds a few directories:
-**/app** This is the folder where your magic will happen. Use the views, controllers and models folder for your app code.
-**/config** this folder holds a few configuration files. Currently only the connection to the database.
-**/lib** This is where you should put external libraries and other external files.
-**/lib/base** The library files. Don’t change these :)
-**/web** This folder holds files that are to be “downloaded” from your app. Stylesheets, javascripts and images used. (and more of course)
+* Create new tasks
+* List all tasks
+* View task details
+* Edit task titles
+* Delete tasks
+* Manage the task lifecycle:
 
-The system uses a basic MVC structure, with your web app’s files located in the
-“app” folder.
+  * Start
+  * Complete
+  * Reset
+  * Restart
+* Persist data using a JSON file
+* Responsive user interface built with Tailwind CSS
 
-#### app/controllers
-Your application’s controllers should be defined here.
+---
 
-All controller names should end with “Controller”. E.g. TestController.
-All controllers should inherit the library’s “Controller” class.
-However, you should generally just make an ApplicationController, which extends
-the Controller. Then you can defined beforeFilters etc in that, which will get run
-at every request.
+# Task Lifecycle
 
-#### app/models
-Models handles database interaction etc.
+Each task can move through the following states:
 
-All models should inherit from the Model class, which provides basic functionality.
-The Model class handles basic functionality such as:
+```text
+Pending
+   │
+   ▼
+Started
+   │
+   ▼
+Completed
+```
 
-Setting up a database connection (using PDO)
-fetchOne(ID)
-save(array) → both update/create
-delete(ID)
-app/views
-Your view files.
-The structure is made so that having a controller named TestController, it looks
-in the app/views/test/ folder for it’s view files.
+Additional supported transitions:
 
-All view files end with .phtml
-Having an action in the TestController called index, the view file
-app/views/test/index.phtml will be rendered as default.
+* **Reset** → Started → Pending
+* **Restart** → Completed → Started
 
-#### config/routes.php
-Your routes around the system needs to be defined here.
-A route consists of the URL you want to call + the controller#action you want it
-to hit.
+The business rules ensure that only valid task state transitions are allowed.
 
-An example is:
-$routes = array(
-‘/test’ => ‘test#index’ // this will hit the TestController’s indexAction method.
-);
+---
 
-#### Error handling
-A general error handling has been added.
+# Task Information
 
-If a route doesn’t exist, then the error controller is hit.
-If some other exception was thrown, the error controller is hit.
-As default, the error controller just shows the exception occured, so remember
-to style the error controller’s view file (app/views/error/error.phtml)
+Each task stores:
 
+* ID
+* Title
+* Current state
+* Start timestamp
+* Completion timestamp
+* Creator identifier
 
-### Utilities
-- [PHP Developers Guide](https://www.php.net/manual/en/index.php).
-- .gitignore file configuration. [See Official Docs](https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files).
-- Git branches. [See Official Docs](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell).
+---
+
+# Architecture
+
+Taskette follows the **Model–View–Controller (MVC)** architectural pattern.
+
+```text
+Browser
+   │
+   ▼
+Controller
+   │
+   ▼
+Model
+   │
+   ▼
+View
+```
+
+## Controller
+
+The controllers receive incoming requests, **normalize and validate user input**, coordinate the application flow, invoke the appropriate business logic, and select the view to render.
+
+## Model
+
+The Model layer is responsible for representing the application's domain, implementing business rules, and managing persistence.
+
+To keep responsibilities separated, it is internally divided into:
+
+* **Domain Models** – represent the application's entities (`Task`)
+* **Services** – implement business rules and task state transitions
+* **Repositories** – handle persistence by reading and writing the JSON storage
+
+## View
+
+Views are built using **PHTML** templates.
+
+They are responsible for presenting the data provided by the controllers without containing business logic. Styling is implemented using **Tailwind CSS**.
+
+---
+
+# Project Structure
+
+```text
+app/
+├── controllers/
+├── models/
+├── views/
+
+config/
+data/
+lib/
+web/
+```
+
+* **controllers** – Request handling
+* **models** – Domain models, services, repositories, enums
+* **views** – PHTML templates
+* **config** – Routing and configuration
+* **data** – JSON persistence
+* **lib** – Base framework classes
+* **web** – Front controller and static assets
+
+---
+
+# Routes
+
+| Route          | Description                    |
+| -------------- | ------------------------------ |
+| `/task/new`    | Display the task creation form |
+| `/task/create` | Create a new task              |
+| `/task/list`   | Display all tasks              |
+| `/task/show`   | Display task details           |
+| `/task/edit`   | Display the edit form          |
+| `/task/save`   | Save task edits                |
+| `/task/update` | Update the task state          |
+| `/task/delete` | Delete a task                  |
+
+---
+
+# Tech Stack
+
+## Backend
+
+* PHP
+* MVC Architecture
+* Object-Oriented Programming
+* Service / Repository pattern
+* JSON persistence
+
+## Frontend
+
+* PHTML templates
+* Tailwind CSS
+* Responsive design
+
+## Development
+
+* Git
+* GitFlow
+
+---
+
+# Design
+
+The interface was built with **Tailwind CSS**, following a clean and responsive design. Reusable utility classes and custom component classes are used to provide a consistent appearance across forms, cards, buttons, notifications, and task views.
+
+---
+
+# Requirements
+
+* PHP 8.x
+* Apache, Nginx, or another PHP-compatible web server
+
+No database configuration is required.
+
+---
+
+# Running the Project
+
+1. Clone the repository.
+2. Configure your web server to serve the project's `web/` directory.
+3. Ensure the `data/tasks.json` file is writable by the PHP process.
+4. Open the application in your browser.
+
+Example using XAMPP:
+
+```text
+http://localhost/php-s03-03-to-do/web/
+```
+
+---
+
+# Data Persistence
+
+Taskette stores its data in:
+
+```text
+data/tasks.json
+```
+
+The application does not require a relational database. All task information is loaded from and saved to the JSON file through the Repository layer.
+
+---
+
+# Learning Objectives
+
+This project was developed to practice:
+
+* PHP application development
+* MVC architecture
+* Object-Oriented Programming
+* Separation of concerns
+* Service and Repository patterns
+* Frontend development with PHTML templates
+* Responsive UI development with Tailwind CSS
+* JSON-based persistence
+* GitFlow workflow
