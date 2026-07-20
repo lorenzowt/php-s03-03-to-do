@@ -8,30 +8,16 @@ class TaskService
             $this->taskRepository = $taskRepository ?? new TaskRepository();
         }
 
-   public function createTask(array $taskData): TaskActionResult
+   public function create(string $title): TaskActionResult
    {
-        if (!isset($taskData['title'])){
-            return TaskActionResult::failure(['Title is required']);
-        }
-
-        $taskData = $this->normalizeData($taskData);
-
-        $errors = $this->validateData($taskData);
-
-        if (!empty($errors)) {
-            return TaskActionResult::failure($errors);
-        }
-
-        $task = new Task(
-            $taskData['title']
-        );
+        $task = new Task($title);
 
         $this->taskRepository->create($task);
 
         return TaskActionResult::success($task);
    }
 
-    public function listTasks(): array
+    public function list(): array
     {
         return $this->taskRepository->list();
     }
@@ -157,35 +143,5 @@ class TaskService
         $this->taskRepository->update($task);
 
         return TaskActionResult::success($task);
-    }
-
-    private function normalizeData(array $taskData): array
-    {
-        if (isset($taskData['title'])){
-            $taskData['title'] = trim($taskData['title']);
-        }
-
-        return $taskData;
-    }
-
-    private function validateData(array $taskData): array
-    {
-        $errors = [];
-        if (isset($taskData['title'])) {
-
-            $title = $taskData['title'];
-
-            if ($title === '') {
-                $errors[] = 'Title is required';
-            }
-
-            if (strlen($title) > 150) {
-                $errors[] = 'Title cannot be longer than 150 characters';
-            }
-        }
-        else {
-            $error[] = 'Title was not received';
-        }
-        return $errors;
     }
 }
