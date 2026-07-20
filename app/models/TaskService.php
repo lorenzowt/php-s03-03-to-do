@@ -19,7 +19,7 @@ class TaskService
         return TaskActionResult::success($task);
    }
 
-    public function listTasks(): array
+    public function list(): array
     {
         return $this->taskRepository->list();
     }
